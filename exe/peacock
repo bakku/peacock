@@ -2,4 +2,4 @@
 
 require "peacock"
 
-puts 'hello'
+puts 'just a test. still under construction. look back later'
