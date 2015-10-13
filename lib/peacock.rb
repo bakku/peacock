@@ -9,5 +9,5 @@ module Peacock
   def self.execute
     Peacock::StartupManager.check_peacock_requirements
   end
-  
+
 end
