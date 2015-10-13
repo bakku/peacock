@@ -7,7 +7,7 @@ require 'peacock/startup_manager'
 module Peacock
 
   def self.execute
-    Peacock::StartupManager.check_peacock_requirements
+    Peacock::StartupManager.new.check_peacock_requirements
   end
 
 end
