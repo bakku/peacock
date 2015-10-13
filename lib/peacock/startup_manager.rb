@@ -2,9 +2,11 @@ module Peacock
   
   class StartupManager
     
-    def check_peacock_requirements
+    def self.check_peacock_requirements
+      startup = StartupManager.new
+      
       begin
-        check_git_repository
+        startup.check_git_repository
       rescue PeacockError
         puts 'An error occured. Make sure you are in a git repository and git is installed.'
         exit 1
