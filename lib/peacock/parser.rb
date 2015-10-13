@@ -5,7 +5,7 @@ module Peacock
     def self.parse
       parser = Parser.new
       parser.check_if_help_text
-      parser.parse_args
+      parser.parse_args.hash
     end
     
     def parse_args
