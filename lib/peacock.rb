@@ -3,7 +3,9 @@ require 'git'
 require 'peacock/version'
 require 'peacock/peacock_exception'
 require 'peacock/startup_manager'
+require 'peacock/parse_hash'
 require 'peacock/parser'
+
 
 module Peacock
 
