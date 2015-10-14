@@ -4,16 +4,20 @@ module Peacock
     
     def self.ignore(opt_hash)
       ignorer = Ignorer.new(opt_hash)
-      ignorer.commit_all('peacock: before .gitignore commit')
-      ignorer.ignore_files_and_directories
-      ignorer.clear_cache
-      ignorer.commit_all('peacock: after .gitignore commit')
+      ignorer.workflow
     end
     
     def initialize(opt_hash)
       @hash = opt_hash
       @git_ignore = File.open('.gitignore', 'a+')
       @repo = Git.open Dir.pwd
+    end
+    
+    def workflow
+      commit_all('peacock: before .gitignore commit')
+      ignore_files_and_directories
+      clear_cache
+      commit_all('peacock: after .gitignore commit')
     end
     
     def clear_cache

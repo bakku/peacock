@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Christian Paling"]
   spec.email         = ["christian.paling@googlemail.com"]
 
-  spec.summary       = %q{Peacock development is in progress. This gem will make it easy to add files to .gitignore}
-  spec.description   = %q{Longer Description}
+  spec.summary       = %q{Peacock is a small tool to easily manage your .gitignore}
+  spec.description   = %q{Peacock is a small tool to easily manage your .gitignore}
   spec.homepage      = "https://github.com/bakku/peacock"
   spec.license       = "MIT"
 
