@@ -13,7 +13,7 @@ module Peacock
   def self.execute
     Peacock::StartupManager.check_peacock_requirements
     parse_hash = Peacock::Parser.parse
-    Peacock::Ignorer.ignore parse_hash
+    Peacock::Ignorer.ignore(parse_hash)
   end
 
 end
