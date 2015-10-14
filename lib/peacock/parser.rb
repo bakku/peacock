@@ -5,7 +5,7 @@ module Peacock
     def self.parse
       parser = Parser.new
       parser.check_if_help_text
-      parser.parse_args.hash
+      parser.parse_args
     end
     
     def parse_args
@@ -16,7 +16,7 @@ module Peacock
         return_hash.push(type, arg) unless type.nil?
       end
       
-      return_hash
+      return_hash.hash
     end
     
     def determine_type(opt)
