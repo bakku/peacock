@@ -29,4 +29,10 @@ class TestStartupManager < Minitest::Test
     Dir.chdir 'test'
     assert @startup.git_repository?
   end
+  
+  def test_check_git_repository_should_raise_exception
+    assert_raises do
+      @startup.check_git_repository
+    end
+  end
 end
