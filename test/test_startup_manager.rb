@@ -22,4 +22,11 @@ class TestStartupManager < Minitest::Test
     Git.init
     assert @startup.git_repository?  
   end
+  
+  def test_git_repository_nested_should_be_true
+    Git.init
+    Dir.mkdir 'test'
+    Dir.chdir 'test'
+    assert @startup.git_repository?
+  end
 end
