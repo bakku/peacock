@@ -51,11 +51,12 @@ module Peacock
           \t-h, [--help]           # show this text
           \t-r, [--root]           # use root .gitignore (not functional yet)
           \t-e, [--extract]        # extract file from .gitignore (not functional yet)
+          \t-l, [--list]           # list all ignored directories and files (not functional yet)
       EOF
     end
     
     def options
-      ['-r', '--root', '-e', '--extract']
+      ['-r', '--root', '-e', '--extract', '-l', '--list']
     end
     
   end
