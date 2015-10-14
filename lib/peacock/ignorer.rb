@@ -4,18 +4,44 @@ module Peacock
     
     def self.ignore(opt_hash)
       ignorer = Ignorer.new(opt_hash)
-      puts opt_hash
+      ignorer.commit_all('peacock: before .gitignore commit')
       ignorer.ignore_files_and_directories
+      ignorer.clear_cache
+      ignorer.commit_all('peacock: after .gitignore commit')
     end
     
     def initialize(opt_hash)
       @hash = opt_hash
       @git_ignore = File.open('.gitignore', 'a+')
+      @repo = Git.open Dir.pwd
+    end
+    
+    def clear_cache
+      # totally ugly, but ruby-git does not support git rm -r --cached
+      Open3.popen3('git rm -r --cached .') do |stdin, stdout, stderr, thread|
+        # ignore output
+      end
+    end
+    
+    def commit_all(message)
+      begin
+        @repo.add(all: true) 
+        @repo.commit_all(message)
+      rescue
+        # do nothing
+      end
     end
     
     def ignore_files_and_directories
       ignore_files
       ignore_directories
+    end
+    
+    def ignore_directories
+      @hash[:directories].each do |dir|
+        dir = dir + '/' unless dir =~ /\/$/  # add backlash to dir name if it does not exist yet
+        check_and_write(dir)
+      end
     end
     
     def ignore_files
