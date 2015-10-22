@@ -2,10 +2,6 @@ require 'git/base'
 require 'git/error'
 
 module Git
-  def self.check
-    check_git_existance
-    check_repo_existance
-  end
   
   # checks if git is installed
   def self.check_git_existance
