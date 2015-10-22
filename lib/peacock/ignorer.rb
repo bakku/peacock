@@ -10,30 +10,13 @@ module Peacock
     def initialize(opt_hash)
       @hash = opt_hash
       @git_ignore = File.open('.gitignore', 'a+')
-      @repo = Git.open Dir.pwd
     end
     
     def workflow
-      commit_all('peacock: before .gitignore commit')
+      Git.commit_all('peacock: before .gitignore commit')
       ignore_files_and_directories
-      clear_cache
-      commit_all('peacock: after .gitignore commit')
-    end
-    
-    def clear_cache
-      # totally ugly, but ruby-git does not support git rm -r --cached
-      Open3.popen3('git rm -r --cached .') do |stdin, stdout, stderr, thread|
-        # ignore output
-      end
-    end
-    
-    def commit_all(message)
-      begin
-        @repo.add(all: true) 
-        @repo.commit_all(message)
-      rescue
-        # do nothing
-      end
+      Git.clear_cache
+      Git.commit_all('peacock: after .gitignore commit')
     end
     
     def ignore_files_and_directories

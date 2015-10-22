@@ -15,7 +15,7 @@ class TestGit < Minitest::Test
   
   def test_git_new_should_raise_exception
     assert_raises NoGitRepositoryError do
-      Git.check
+      Git.check_repo_existance
     end
   end
 end

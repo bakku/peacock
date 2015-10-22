@@ -6,10 +6,8 @@ class TestPeacock < Minitest::Test
   def test_full
     Dir.mkdir 'temptest'
     Dir.chdir 'temptest'
-    repo = Git.init
     FileUtils.touch('file.txt')
-    repo.add(all: true)
-    repo.commit_all('test_commit')
+    Git.commit_all('test_commit')
     ARGV[0] = 'file.txt'
     parse_hash = Peacock::Parser.parse
     Peacock::Ignorer.ignore(parse_hash)
