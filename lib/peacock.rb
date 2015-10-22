@@ -1,7 +1,4 @@
-#require 'git'
-require 'open3'
-
-require 'git/git'
+require 'git'
 require 'peacock/version'
 require 'peacock/peacock_error'
 require 'peacock/startup_manager'

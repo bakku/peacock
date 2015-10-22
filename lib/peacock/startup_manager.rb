@@ -20,7 +20,7 @@ module Peacock
     # checks if current directory is a git repository
     def git_repository?
       begin
-        Git.open Dir.pwd
+        Git.new Dir.pwd
         true
       rescue
         false

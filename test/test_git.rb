@@ -14,8 +14,8 @@ class TestGit < Minitest::Test
   end
   
   def test_git_new_should_raise_exception
-    assert_raises Peacock::PeacockError do
-      Git.new
+    assert_raises NoGitRepositoryError do
+      Git.check
     end
   end
 end
