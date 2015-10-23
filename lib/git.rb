@@ -26,6 +26,10 @@ module Git
     Git::Lib.git
   end
   
+  def self.init
+    Git::Lib.init
+  end
+  
   def self.status
     Git::Lib.status
   end
