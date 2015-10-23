@@ -3,7 +3,7 @@ require 'minitest_helper'
 class TestIgnorer < Minitest::Test
   
   def setup
-    @ignorer = Peacock::Ignorer.new(Peacock::CLIHash.new)
+    @ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
     Dir.mkdir '/tmp/temptest'
     Dir.chdir '/tmp/temptest'
   end

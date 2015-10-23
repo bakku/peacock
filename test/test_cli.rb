@@ -59,12 +59,12 @@ class TestCLI < Minitest::Test
     
     hash = @parser.parse_args
     
-    assert_equal 1, hash[:dirs].size
-    assert_equal 1, hash[:files].size
-    assert_equal 1, hash[:opts].size
+    assert_equal 1, hash.dirs.size
+    assert_equal 1, hash.files.size
+    assert_equal 1, hash.opts.size
     
-    assert_equal 'test_dir', hash[:dirs].first
-    assert_equal 'test_file', hash[:files].first
-    assert_equal '-r', hash[:opts].first
+    assert_equal 'test_dir', hash.dirs.first
+    assert_equal 'test_file', hash.files.first
+    assert_equal '-r', hash.opts.first
   end
 end
