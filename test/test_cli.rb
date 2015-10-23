@@ -49,15 +49,6 @@ class TestCLI < Minitest::Test
     refute @parser.determine_type 'not_available'
   end
   
-  def test_determine_root_dir_should_be_correct
-    Git.init
-    Dir.mkdir 'hello'
-    Dir.chdir 'hello'
-    Dir.mkdir 'bye'
-    Dir.chdir 'bye'
-    puts @parser.determine_root_dir
-  end
-  
   def test_parse_hash_should_be_as_expected
     Dir.mkdir 'test_dir'
     FileUtils.touch 'test_file'

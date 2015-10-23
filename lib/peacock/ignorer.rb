@@ -8,12 +8,17 @@ module Peacock
     end
     
     def initialize(opt_hash)
-      @hash = opt_hash
+      @hash = check_and_return_hash(opt_hash)
       path = determine_git_ignore_path
       @git_ignore = File.open(path, 'a+')
     end
     
-    def open_git_ignore
+    def check_and_return_hash(opt_hash)
+      raise PeacockError, 'Peacock::Ignorer expects an instance of Peacock::CLIHash' unless opt_hash.class == Peacock::CLIHash
+      opt_hash
+    end
+    
+    def determine_git_ignore_path
       if @hash.root_ignore?
         determine_root_dir
       else
@@ -22,11 +27,14 @@ module Peacock
     end
     
     def determine_root_dir
+      old_path = Dir.pwd
       while not Dir.exists? '.git'
         Dir.chdir '..'
       end
       
-      Dir.pwd() + '/.gitignore'
+      path = Dir.pwd() + '/.gitignore'
+      Dir.chdir(old_path)
+      path
     end
     
     def workflow
