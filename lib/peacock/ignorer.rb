@@ -17,6 +17,7 @@ module Peacock
       ignore_files_and_directories
       Git.clear_cache
       Git.commit_all('peacock: after .gitignore commit')
+      @git_ignore.close
     end
     
     def ignore_files_and_directories
