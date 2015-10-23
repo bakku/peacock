@@ -16,7 +16,7 @@ module Peacock
         return_hash.push(type, arg) unless type.nil?
       end
       
-      return_hash.hash
+      return_hash
     end
     
     def determine_type(opt)

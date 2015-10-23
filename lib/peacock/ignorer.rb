@@ -14,7 +14,7 @@ module Peacock
     end
     
     def check_and_return_hash(opt_hash)
-      raise PeacockError, 'Peacock::Ignorer expects an instance of Peacock::CLIHash' unless opt_hash.class == Peacock::CLIHash
+      raise PeacockError, 'Peacock::Ignorer expects an instance of Peacock::CLIHash' unless opt_hash.class == CLIHash
       opt_hash
     end
     
@@ -51,14 +51,14 @@ module Peacock
     end
     
     def ignore_directories
-      @hash[:dirs].each do |dir|
+      @hash.dirs.each do |dir|
         dir = dir + '/' unless dir =~ /\/$/  # add backlash to dir name if it does not exist yet
         check_and_write(dir)
       end
     end
     
     def ignore_files
-      @hash[:files].each do |file|
+      @hash.files.each do |file|
         check_and_write(file)
       end
     end
