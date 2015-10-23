@@ -22,6 +22,7 @@ module Git
     end
   end
   
+  # so Git calls follow the Git.<command> pattern
   def self.git
     Git::Lib.git
   end

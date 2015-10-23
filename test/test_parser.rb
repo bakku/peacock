@@ -4,7 +4,7 @@ require 'fileutils'
 class TestParser < Minitest::Test
   
   def setup
-    @parser = Peacock::Parser.new
+    @parser = Peacock::CLI.new
     Dir.mkdir '/tmp/temptest'
     Dir.chdir '/tmp/temptest'
   end

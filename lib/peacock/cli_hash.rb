@@ -1,6 +1,6 @@
 module Peacock
 
-  class ParseHash
+  class CLIHash
     
     attr_reader :hash
     

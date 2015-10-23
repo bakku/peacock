@@ -1,15 +1,15 @@
 module Peacock
 
-  class Parser
+  class CLI
     
     def self.parse
-      parser = Parser.new
+      parser = CLI.new
       parser.check_if_help_text
       parser.parse_args
     end
     
     def parse_args
-      return_hash = Peacock::ParseHash.new
+      return_hash = Peacock::CLIHash.new
       
       ARGV.each do |arg|
         type = determine_type arg
