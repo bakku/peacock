@@ -15,8 +15,24 @@ module Peacock
       @hash[type].push(str)
     end
     
+    def opts
+      @hash[:opts]
+    end
+    
+    def files
+      @hash[:files]
+    end
+    
+    def dirs
+      @hash[:dirs]
+    end
+    
     def to_s
       hash.to_s
+    end
+    
+    def root_ignore?
+      opts.include?('-r') || opts.include?('--root')
     end
     
   end

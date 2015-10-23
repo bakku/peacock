@@ -1,6 +1,6 @@
 require 'minitest_helper'
 
-class TestParser < Minitest::Test
+class TestCLI < Minitest::Test
   
   def setup
     @parser = Peacock::CLI.new
@@ -47,6 +47,15 @@ class TestParser < Minitest::Test
   
   def test_determine_type_should_be_nil
     refute @parser.determine_type 'not_available'
+  end
+  
+  def test_determine_root_dir_should_be_correct
+    Git.init
+    Dir.mkdir 'hello'
+    Dir.chdir 'hello'
+    Dir.mkdir 'bye'
+    Dir.chdir 'bye'
+    puts @parser.determine_root_dir
   end
   
   def test_parse_hash_should_be_as_expected

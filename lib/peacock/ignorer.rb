@@ -9,7 +9,24 @@ module Peacock
     
     def initialize(opt_hash)
       @hash = opt_hash
-      @git_ignore = File.open('.gitignore', 'a+')
+      path = determine_git_ignore_path
+      @git_ignore = File.open(path, 'a+')
+    end
+    
+    def open_git_ignore
+      if @hash.root_ignore?
+        determine_root_dir
+      else
+        '.gitignore'
+      end
+    end
+    
+    def determine_root_dir
+      while not Dir.exists? '.git'
+        Dir.chdir '..'
+      end
+      
+      Dir.pwd() + '/.gitignore'
     end
     
     def workflow
