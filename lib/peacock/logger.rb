@@ -7,11 +7,11 @@ module Peacock
     end
     
     def ignore(string)
-      puts 'added #{string} to .gitignore' unless @verbose
+      puts "added #{string} to .gitignore" unless @verbose
     end
     
     def extract(string)
-      puts 'removed #{string} from .gitignore' unless @verbose
+      puts "removed #{string} from .gitignore" unless @verbose
     end
     
   end

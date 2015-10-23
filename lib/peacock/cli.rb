@@ -50,14 +50,14 @@ module Peacock
         Options:
           \t-h, [--help]           # show this text
           \t-r, [--root]           # use root .gitignore
-          \t-v, [--verbose]        # surpress output (not functional yet)
+          \t-v, [--verbose]        # surpress output
           \t-e, [--extract]        # extract file from .gitignore (not functional yet)
           \t-l, [--list]           # list all ignored directories and files (not functional yet)
       EOF
     end
     
     def options
-      ['-r', '--root', '-e', '--extract', '-l', '--list']
+      ['-r', '--root', '-e', '--extract', '-l', '--list', '-v', '--verbose']
     end
     
   end
