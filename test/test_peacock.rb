@@ -1,6 +1,4 @@
 require 'minitest_helper'
-require 'fileutils'
-require 'open3'
 
 class TestPeacock < Minitest::Test
   

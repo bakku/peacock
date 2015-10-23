@@ -42,4 +42,9 @@ module Git
   def self.clear_cache
     Git::Lib.clear_cache
   end
+  
+  def self.log
+    Git::Lib.log
+  end
+  
 end

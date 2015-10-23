@@ -24,6 +24,10 @@ module Git
       Git::Base.command_output('rm', '-r --cached .')
     end
     
+    def self.log
+      Git::Base.command_output('log')
+    end
+    
   end
   
 end

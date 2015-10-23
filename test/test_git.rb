@@ -24,4 +24,14 @@ class TestGit < Minitest::Test
     assert output.include?('Initialized empty Git repository')
     Dir.exists?('.git')
   end
+  
+  def test_git_commit_all_should_return_correct_output
+    Git.init
+    FileUtils.touch 'file.txt'
+    Git.commit_all('test')
+    output = Git.log
+    assert output.include?('commit')
+    assert output.include?('test')
+  end
+  
 end
