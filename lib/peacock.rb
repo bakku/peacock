@@ -1,4 +1,5 @@
 require 'git'
+require 'peacock/logger'
 require 'peacock/version'
 require 'peacock/error'
 require 'peacock/startup_manager'

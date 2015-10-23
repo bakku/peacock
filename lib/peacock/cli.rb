@@ -49,7 +49,8 @@ module Peacock
         
         Options:
           \t-h, [--help]           # show this text
-          \t-r, [--root]           # use root .gitignore (not functional yet)
+          \t-r, [--root]           # use root .gitignore
+          \t-v, [--verbose]        # surpress output (not functional yet)
           \t-e, [--extract]        # extract file from .gitignore (not functional yet)
           \t-l, [--list]           # list all ignored directories and files (not functional yet)
       EOF

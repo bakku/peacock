@@ -35,6 +35,10 @@ module Peacock
       opts.include?('-r') || opts.include?('--root')
     end
     
+    def verbose?
+      opts.include?('-v') || opts.include?('--verbose')
+    end
+    
   end
   
 end

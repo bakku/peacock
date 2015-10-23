@@ -9,6 +9,7 @@ module Peacock
     
     def initialize(opt_hash)
       @hash = check_and_return_hash(opt_hash)
+      logger = Peacock::Logger.new(@hash.verbose?)
       path = determine_git_ignore_path
       @git_ignore = File.open(path, 'a+')
     end
@@ -64,7 +65,11 @@ module Peacock
     end
     
     def check_and_write(str)
-      @git_ignore.write(str + "\n")  unless entry_exists?(str)
+      unless entry_exists?(str)
+        @git_ignore.write(str + "\n")
+        logger.ignore(str)
+      end
+      
       @git_ignore.rewind
     end
     
