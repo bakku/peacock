@@ -18,4 +18,10 @@ class TestGit < Minitest::Test
       Git.check_repo_existance
     end
   end
+  
+  def test_git_init_should_return_correct_output
+    output = Git.init
+    assert output.include?('Initialized empty Git repository')
+    Dir.exists?('.git')
+  end
 end
