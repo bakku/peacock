@@ -39,6 +39,14 @@ module Peacock
       opts.include?('-v') || opts.include?('--verbose')
     end
     
+    def engine
+      if opts.include?('-e')
+        return Peacock::Engine::Extractor
+      else
+        return Peacock::Engine::Ignorer
+      end  
+    end
+    
   end
   
 end

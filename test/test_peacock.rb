@@ -18,7 +18,7 @@ class TestPeacock < Minitest::Test
     Git.commit_all('test commit')
     ARGV[0] = 'file.txt'
     cli_hash = Peacock::CLI.parse
-    Peacock::Engine::Ignorer.ignore(cli_hash)
+    Peacock::Engine::Ignorer.start_engine(cli_hash)
     system('echo hello > file.txt')
     str,o = Open3.capture2('git status')
     str

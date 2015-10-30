@@ -3,8 +3,9 @@ module Peacock
   module Engine
   
     class Ignorer
-    
-      def self.ignore(opt_hash)
+      include Peacock::Engine::Engine
+      
+      def self.start_engine(opt_hash)
         ignorer = Ignorer.new(opt_hash)
         ignorer.workflow
       end
@@ -14,30 +15,6 @@ module Peacock
         @logger = Peacock::Logger.new(@hash.verbose?)
         path = determine_git_ignore_path
         @git_ignore = File.open(path, 'a+')
-      end
-    
-      def check_and_return_hash(opt_hash)
-        raise PeacockError, 'Peacock::Ignorer expects an instance of Peacock::CLIHash' unless opt_hash.class == CLIHash
-        opt_hash
-      end
-    
-      def determine_git_ignore_path
-        if @hash.root_ignore?
-          determine_root_dir
-        else
-          '.gitignore'
-        end
-      end
-    
-      def determine_root_dir
-        old_path = Dir.pwd
-        while not Dir.exists? '.git'
-          Dir.chdir '..'
-        end
-      
-        path = Dir.pwd() + '/.gitignore'
-        Dir.chdir(old_path)
-        path
       end
     
       def workflow
