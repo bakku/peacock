@@ -17,20 +17,20 @@ Install by executing:
 
 ## Usage
 
-Usage: 
-  peacock [options] [files/directories]
-        
-  Options:
-    -h, [--help]           # show this text
-    -r, [--root]           # use root .gitignore (not functional yet)
-    -e, [--extract]        # extract file from .gitignore (not functional yet)
-    -l, [--list]           # list all ignored directories and files (not functional yet)
+Usage:
+
+    peacock [options] [files/directories]
+  
+Options:
+
+    -h, [--help]        # show this text
+    -r, [--root]        # use root .gitignore
+    -v, [--verbose]     # surpress output
+    -e, [--extract]     # extract file from .gitignore (not functional yet)
+    -l, [--list]        # list all ignored directories and files (not functional yet)
 
 ## TODO
 
-- ruby-git does not recognize a repo unless you are in the root directory. a different mechanism is needed
-- implement own small git library for peacock
-- create a test environment and better tests
 - add functionalities
 - custom commit messages
 - comments in .gitignore
