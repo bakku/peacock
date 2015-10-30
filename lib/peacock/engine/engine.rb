@@ -34,6 +34,10 @@ module Peacock
         path
       end
       
+      def git_ignore_exists?(path)
+        raise PeacockError, '#{self.class} expects .gitignore to exist at #{path}' unless File.exists?(path)
+      end
+      
     end
     
   end
