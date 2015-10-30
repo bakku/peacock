@@ -4,14 +4,9 @@ class TestCLI < Minitest::Test
   
   def setup
     @hash = Peacock::CLIHash.new
-    Dir.mkdir '/tmp/temptest'
-    Dir.chdir '/tmp/temptest'
   end
   
   def teardown
-    Dir.chdir '/tmp'
-    FileUtils.rm_rf 'temptest'
-    ARGV.clear
   end
   
   def test_push_to_opts
