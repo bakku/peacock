@@ -27,9 +27,11 @@ Options:
     -r, [--root]        # use root .gitignore
     -v, [--verbose]     # surpress output
     -e, [--extract]     # extract file from .gitignore (not functional yet)
+    -l, [--list]        # list all ignored directories and files (not functional yet)
 
 ## TODO
 
+- add functionalities
 - custom commit messages
 - comments in .gitignore
 
