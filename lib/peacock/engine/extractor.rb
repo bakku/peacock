@@ -17,7 +17,7 @@ module Peacock
         git_ignore_exists?(path)
 
         # open in mode read-write (beginning of file)
-        @git_ignore = File.open(path, 'r+')
+        @git_ignore = File.open(path, 'r')
       end
       
       def workflow
@@ -26,13 +26,17 @@ module Peacock
       end
       
       def extract_files_and_directories
-        git_ignore_array = @git_ignore.readlines
+        ignore_lines = @git_ignore.readlines
 
-        git_ignore_array.delete_if do |line|
+        ignore_lines.delete_if do |line|
           @hash.dirs.include?(line.chomp("\n")) || @hash.files.include?(line.chomp("\n"))
         end
 
-        puts git_ignore_array.inspect
+        @git_ignore.reopen(@git_ignore.path, 'w')
+
+        ignore_lines.each do |line|
+          @git_ignore.write(line)
+        end
       end
     
     end

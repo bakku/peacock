@@ -6,7 +6,7 @@ require 'peacock/startup_manager'
 require 'peacock/cli_hash'
 require 'peacock/cli'
 require 'peacock/engine/engine'
-require 'peacock/engine/ignorer'
+require 'peacock/engine/extractor'
 require 'peacock/engine/ignorer'
 
 
