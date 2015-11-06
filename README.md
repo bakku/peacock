@@ -2,8 +2,6 @@
 
 Peacock is a small tool to easily manage your .gitignore written in ruby.
 
-At the moment, Peacock can only be executed from the root directory of your repository.
-
 In order to perform your changes on .gitignore, peacock will automatically add all current files to the index
 and perform a commit before and after you execute peacock.
 
@@ -26,8 +24,7 @@ Options:
     -h, [--help]        # show this text
     -r, [--root]        # use root .gitignore
     -v, [--verbose]     # surpress output
-    -e, [--extract]     # extract file from .gitignore (not functional yet)
-    -l, [--list]        # list all ignored directories and files (not functional yet)
+    -e, [--extract]     # extract file from .gitignore
 
 ## TODO
 
