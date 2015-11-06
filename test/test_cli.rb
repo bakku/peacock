@@ -73,7 +73,7 @@ class TestCLI < Minitest::Test
     assert_equal 1, hash.files.size
     assert_equal 1, hash.opts.size
     
-    assert_equal 'test_dir', hash.dirs.first
+    assert_equal '/test_dir/', hash.dirs.first
     assert_equal 'test_file', hash.files.first
     assert_equal '-r', hash.opts.first
     

@@ -32,7 +32,6 @@ module Peacock
     
       def ignore_directories
         @hash.dirs.each do |dir|
-          dir = dir + '/' unless dir =~ /\/$/  # add backlash to dir name if it does not exist yet
           check_and_write(dir)
         end
       end

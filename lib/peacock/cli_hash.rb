@@ -12,6 +12,11 @@ module Peacock
     end
     
     def push(type, str)
+      if type == :dirs
+        str = str + '/' unless str =~ /\/$/  # add backlash to dir name if it does not exist yet
+        str = '/' + str unless str =~ /^\//   # add backlash to beginning of dir name if it does not exist yet
+      end
+
       @hash[type].push(str)
     end
     
