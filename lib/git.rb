@@ -38,6 +38,10 @@ module Git
   def self.commit_all(message)
     Git::Lib.commit_all(message)
   end
+
+  def self.remove_from_cache(file)
+    Git::Lib.remove_from_cache(file)
+  end
   
   def self.clear_cache
     Git::Lib.clear_cache

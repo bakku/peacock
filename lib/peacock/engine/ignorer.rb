@@ -18,10 +18,7 @@ module Peacock
       end
     
       def workflow
-        Git.commit_all('peacock: before .gitignore commit')
         ignore_files_and_directories
-        Git.clear_cache
-        Git.commit_all('peacock: after .gitignore commit')
         @git_ignore.close
       end
     
@@ -44,10 +41,9 @@ module Peacock
     
       def check_and_write(str)
         unless entry_exists?(str)
-          @git_ignore.write(str + "\n")
-          @logger.ignore(str)
+          insert_in_gitignore(str)
         end
-      
+
         @git_ignore.rewind
       end
     
@@ -56,6 +52,17 @@ module Peacock
           return true if line.chomp == entry
         end
         false
+      end
+
+      def insert_in_gitignore(str)
+        @git_ignore.write(str + "\n")
+        Git.remove_from_cache(prepare_arg(str))
+        @logger.ignore(str)
+      end
+
+      # if directory then remove leading slash
+      def prepare_arg(str)
+        str[1..-1] if str.start_with?('/')
       end
     
     end

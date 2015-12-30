@@ -23,6 +23,10 @@ module Git
     def self.clear_cache
       Git::Base.command_output('rm', '-r --cached .')
     end
+
+    def self.remove_from_cache(path)
+      Git::Base.command_output('rm', "-rf --cached #{path}")
+    end
     
     def self.log
       Git::Base.command_output('log')
