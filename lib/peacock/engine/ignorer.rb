@@ -62,7 +62,11 @@ module Peacock
 
       # if directory then remove leading slash
       def prepare_arg(str)
-        str[1..-1] if str.start_with?('/')
+        if str.start_with?('/')
+          str[1..-1]
+        else
+          str
+        end
       end
     
     end
