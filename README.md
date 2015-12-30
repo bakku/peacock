@@ -2,11 +2,7 @@
 
 Peacock is a small tool to easily manage your .gitignore written in ruby.
 
-It lets you ignore and extract files and directories using .gitignore in your current git repository.
-
-Note that while ignoring files and directories peacock will perform safety commits to make sure your work is not lost. It will commit all your uncommited work (if there is any) before and after adding files to .gitignore.
-
-While extracting, peacock leaves everything untouched.
+It lets you extract files and directories from .gitignore files as well as inserting new files to .gitignore
 
 Note that at the moment you can't combine options with one hyphen (e.g.: -ev for --extract and --verbose) but you have to pass them separated (e.g.: -e -v)
 
@@ -44,8 +40,10 @@ Options:
     added some to .gitignore
     
     $ git status
-    On branch master
-    nothing to commit, working directory clean
+    ...
+    Untracked files:
+        these
+        files
     
     $ peacock -e are
     removed are from .gitignore
@@ -53,15 +51,14 @@ Options:
     $ git status
     ...
     Untracked files:
+        these
 	    are
+	    files
 
     
 ## TODO
 
-- add functionalities
-- custom commit messages
-- comments in .gitignore
-- options can't be combined (e.g. -ev for extract and surpress)
+Issues are used for TODOs
 
 ## Contributing
 
