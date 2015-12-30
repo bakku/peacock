@@ -22,7 +22,7 @@ Options:
 
     -h, [--help]        # show this text
     -r, [--root]        # use root .gitignore
-    -v, [--verbose]     # surpress output
+    -v, [--verbose]     # suppress output
     -e, [--extract]     # extract file from .gitignore
 
 ## Example
