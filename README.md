@@ -4,7 +4,7 @@ Peacock is a small tool to easily manage your .gitignore written in ruby.
 
 It lets you extract files and directories from .gitignore files as well as inserting new files to .gitignore
 
-Note that at the moment you can't combine options with one hyphen (e.g.: -ev for --extract and --verbose) but you have to pass them separated (e.g.: -e -v)
+Note that at the moment you can't combine options with one hyphen (e.g.: -es for --extract and --silent) but you have to pass them separated (e.g.: -e -v)
 
 ## Installation
 
@@ -62,7 +62,7 @@ Issues are used for TODOs
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/peacock/fork )
+1. Fork it ( https://github.com/bakku/peacock/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
