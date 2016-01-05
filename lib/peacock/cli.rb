@@ -50,13 +50,13 @@ module Peacock
         Options:
           \t-h, [--help]           # show this text
           \t-r, [--root]           # use root .gitignore
-          \t-v, [--verbose]        # surpress output
+          \t-s, [--silent]         # surpress output
           \t-e, [--extract]        # extract file from .gitignore
       EOF
     end
     
     def options
-      %w(-r --root -e --extract -v --verbose)
+      %w(-r --root -e --extract -s --silent)
     end
     
   end

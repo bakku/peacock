@@ -12,7 +12,7 @@ module Peacock
       
       def initialize(opt_hash)
         @hash = check_and_return_hash(opt_hash)
-        @logger = Peacock::Logger.new(@hash.verbose?)
+        @logger = Peacock::Logger.new(@hash.silent?)
         path = determine_git_ignore_path
         git_ignore_exists?(path)
 

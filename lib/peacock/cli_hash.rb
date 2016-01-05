@@ -40,8 +40,8 @@ module Peacock
       opts.include?('-r') || opts.include?('--root')
     end
     
-    def verbose?
-      opts.include?('-v') || opts.include?('--verbose')
+    def silent?
+      opts.include?('-s') || opts.include?('--silent')
     end
     
     def engine
