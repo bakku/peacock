@@ -10,13 +10,30 @@ module Peacock
     
     def parse_args
       return_hash = Peacock::CLIHash.new
-      
+
+      normalize_args!
+
       ARGV.each do |arg|
         type = determine_type arg
         return_hash.push(type, arg) unless type.nil?
       end
       
       return_hash
+    end
+
+    # takes every argument which follows the pattern as this: -ev, splits it to -e -v and adds it to ARGV
+    def normalize_args!
+      ARGV.each do |arg|
+        if arg.start_with?('-') && arg.size > 2
+          ARGV.delete(arg)
+          temp_ary = arg.split('')
+
+          temp_ary.each do |elem|
+            next if elem == '-'
+            ARGV << "-#{elem}"
+          end
+        end
+      end
     end
     
     def determine_type(opt)
