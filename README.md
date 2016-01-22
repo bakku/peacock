@@ -4,8 +4,6 @@ Peacock is a small tool to easily manage your .gitignore written in ruby.
 
 It lets you extract files and directories from .gitignore files as well as inserting new files to .gitignore
 
-Note that at the moment you can't combine options with one hyphen (e.g.: -es for --extract and --silent) but you have to pass them separated (e.g.: -e -v)
-
 ## Installation
 
 Install by executing:
