@@ -4,4 +4,3 @@ require 'peacock'
 require 'fileutils'
 require 'open3'
 require 'minitest/autorun'
-
