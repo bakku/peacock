@@ -1,27 +1,22 @@
 require 'minitest_helper'
 
 class TestIgnorer < Minitest::Test
-  
+
   def setup
-    @ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
-    Dir.mkdir '/tmp/temptest'
-    Dir.chdir '/tmp/temptest'
+    Dir.mkdir '/tmp/peacock'
+    Dir.chdir '/tmp/peacock'
+    Git.init
   end
-  
+
   def teardown
-    Dir.chdir '/tmp'
-    FileUtils.rm_rf 'temptest'
+    FileUtils.rm_rf '/tmp/peacock'
     ARGV.clear
   end
-  
-  def test_determine_root_dir_should_be_correct
-    Git.init
-    Dir.mkdir 'hello'
-    Dir.chdir 'hello'
-    Dir.mkdir 'bye'
-    Dir.chdir 'bye'
-    root_dir = @ignorer.determine_root_dir
-    assert '/tmp/temptest/.gitignore' == root_dir || '/private/tmp/temptest/.gitignore' == root_dir
+
+  def test_should_create_gitignore_if_it_does_not_exist
+    ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
+    ignorer.open_git_ignore
+    File.exist? '.gitignore'
   end
-  
+
 end
