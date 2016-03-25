@@ -31,12 +31,14 @@ class TestCLI < Minitest::Test
     Dir.mkdir 'test_determine_type_should_be_dirs_for_directories'
     type = @parser.determine_type 'test_determine_type_should_be_dirs_for_directories'
     assert_equal :dirs, type
+    FileUtils.rm_rf 'test_determine_type_should_be_dirs_for_directories'
   end
 
   def test_determine_type_should_be_files_for_files
     FileUtils.touch 'test_determine_type_should_be_files_for_files'
     type = @parser.determine_type 'test_determine_type_should_be_files_for_files'
     assert_equal :files, type
+    FileUtils.rm_rf 'test_determine_type_should_be_files_for_files'
   end
 
   def test_determine_type_should_be_opts_for_options
@@ -73,5 +75,9 @@ class TestCLI < Minitest::Test
     assert_equal '/test_dir/', hash.dirs.first
     assert_equal 'test_file', hash.files.first
     assert_equal '-r', hash.opts.first
+
+    FileUtils.rm_rf 'test_dir'
+    FileUtils.rm_rf 'test_file'
   end
+  
 end
