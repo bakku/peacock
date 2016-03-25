@@ -1,44 +1,52 @@
+require 'fileutils'
+
 module Peacock
-  
+
   module Engine
-  
+
     class Ignorer
       include Peacock::Engine::Engine
-      
+
       def self.start_engine(opt_hash)
         ignorer = Ignorer.new(opt_hash)
+        ignorer.open_git_ignore
         ignorer.workflow
       end
-    
+
       def initialize(opt_hash)
         @hash = check_and_return_hash(opt_hash)
         @logger = Peacock::Logger.new(@hash.silent?)
+      end
+
+      def open_git_ignore
         path = determine_git_ignore_path
+        FileUtils.touch(path) unless git_ignore_exists?(path)
+
         @git_ignore = File.open(path, 'a+')
       end
-    
+
       def workflow
         ignore_files_and_directories
         @git_ignore.close
       end
-    
+
       def ignore_files_and_directories
         ignore_files
         ignore_directories
       end
-    
+
       def ignore_directories
         @hash.dirs.each do |dir|
           check_and_write(dir)
         end
       end
-    
+
       def ignore_files
         @hash.files.each do |file|
           check_and_write(file)
         end
       end
-    
+
       def check_and_write(str)
         unless entry_exists?(str)
           insert_in_gitignore(str)
@@ -46,7 +54,7 @@ module Peacock
 
         @git_ignore.rewind
       end
-    
+
       def entry_exists?(entry)
         @git_ignore.each do |line|
           return true if line.chomp == entry
@@ -68,10 +76,9 @@ module Peacock
           str
         end
       end
-    
-    end
-    
-  end
-  
-end
 
+    end
+
+  end
+
+end
