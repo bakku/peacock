@@ -58,7 +58,7 @@ module Peacock
       end
 
       def hash_includes_line?(line)
-        @hash.dirs.include?(line.chomp("\n")) || @hash.files.include?(line.chomp("\n"))
+        @hash.dirs.include?(Formatter.format_dir(line.chomp("\n"))) || @hash.files.include?(line.chomp("\n"))
       end
 
     end
