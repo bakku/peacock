@@ -30,29 +30,28 @@ module Peacock
       end
 
       def extract_files_and_directories
-        delete_list = []
         ignore_lines = @git_ignore.readlines
 
         # determine delete_list (cant use delete_if cause of logger logic)
-        determine_delete_list(ignore_lines, delete_list)
+        delete_list = determine_delete_list(ignore_lines)
 
-        delete_list.each do |entry|
-          ignore_lines.delete_at(entry)
-        end
+        new_list = ignore_lines - delete_list
 
         # reopen in writable mode and input all new git ignore entries
         @git_ignore.reopen(@git_ignore.path, 'w')
 
-        ignore_lines.each do |line|
+        new_list.each do |line|
           @git_ignore.write(line)
         end
       end
 
-      def determine_delete_list(ignore_lines, delete_list)
-        ignore_lines.each_with_index do |line,index|
-          if hash_includes_line?(line)
-            delete_list.push(index)
-            @logger.extract(line.chomp("\n"))
+      def determine_delete_list(ignore_lines)
+        [].tap do |delete_list|
+          ignore_lines.each_with_index do |line,index|
+            if hash_includes_line?(line)
+              delete_list.push(line)
+              @logger.extract(line.chomp("\n"))
+            end
           end
         end
       end

@@ -1,4 +1,5 @@
 require 'minitest_helper'
+require 'fileutils'
 
 class TestExtractor < Minitest::Test
 
@@ -24,16 +25,111 @@ class TestExtractor < Minitest::Test
     hash = Peacock::CLIHash.new
     hash.push :dirs, 'directory'
     extractor = Peacock::Engine::Extractor.new(hash)
+
+    # try different formats
     assert extractor.hash_includes_line?("directory\n")
     assert extractor.hash_includes_line?("directory")
+    assert extractor.hash_includes_line?("/directory")
+    assert extractor.hash_includes_line?("directory/")
+    assert extractor.hash_includes_line?("/directory/")
   end
 
   def test_hash_includes_line_should_return_true_if_file
     hash = Peacock::CLIHash.new
     hash.push :files, 'file'
     extractor = Peacock::Engine::Extractor.new(hash)
+
+    # try different formats
     assert extractor.hash_includes_line?("file\n")
     assert extractor.hash_includes_line?("file")
+  end
+
+  def test_delete_list_should_be_correct
+    hash = Peacock::CLIHash.new
+    hash.push :files, 'file'
+    hash.push :dirs, 'directory'
+    hash.push :opts, '-s'
+    extractor = Peacock::Engine::Extractor.new(hash)
+
+    ignore_lines = ['file', 'file2', 'directory']
+    delete_list = extractor.determine_delete_list(ignore_lines)
+    assert_equal ['file', 'directory'], delete_list
+  end
+
+  def test_full_extractor_test
+    FileUtils.touch 'file'
+    Dir.mkdir 'directory'
+
+    File.open('.gitignore', 'w') do |file|
+      file.write("file\n")
+      file.write("file2\n")
+      file.write("/directory/")
+    end
+
+    hash = Peacock::CLIHash.new
+    hash.push :files, 'file'
+    hash.push :dirs, 'directory'
+    hash.push :opts, '-s'
+    Peacock::Engine::Extractor.start_engine(hash)
+
+    lines = []
+
+    File.open('.gitignore', 'r') do |file|
+      lines = file.readlines
+    end
+
+    assert_equal ["file2\n"], lines
+  end
+
+  def test_full_extractor_test_with_custom_directory_format
+    FileUtils.touch 'file'
+    Dir.mkdir 'directory'
+
+    File.open('.gitignore', 'w') do |file|
+      file.write("file\n")
+      file.write("file2\n")
+      file.write("directory/")
+    end
+
+    hash = Peacock::CLIHash.new
+    hash.push :files, 'file'
+    hash.push :dirs, 'directory'
+    hash.push :opts, '-s'
+    Peacock::Engine::Extractor.start_engine(hash)
+
+    lines = []
+
+    File.open('.gitignore', 'r') do |file|
+      lines = file.readlines
+    end
+
+    assert_equal ["file2\n"], lines
+  end
+
+  def test_full_extractor_test_with_missing_entry
+    FileUtils.touch 'file'
+    Dir.mkdir 'directory'
+
+    File.open('.gitignore', 'w') do |file|
+      file.write("file\n")
+      file.write("file2\n")
+      file.write("directory/")
+    end
+
+    hash = Peacock::CLIHash.new
+    hash.push :files, 'file'
+    hash.push :dirs, 'directory'
+    hash.push :files, 'does_not_exist'
+    hash.push :opts, '-s'
+    Peacock::Engine::Extractor.start_engine(hash)
+
+    lines = []
+
+    File.open('.gitignore', 'r') do |file|
+      lines = file.readlines
+    end
+
+    assert_equal ["file2\n"], lines
   end
 
   def teardown
