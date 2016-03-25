@@ -45,7 +45,7 @@ module Peacock
     end
 
     def engine
-      if opts.include?('-e') || opts.include?('--exclude')
+      if opts.include?('-e') || opts.include?('--extract')
         return Peacock::Engine::Extractor
       else
         return Peacock::Engine::Ignorer
