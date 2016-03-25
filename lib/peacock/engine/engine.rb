@@ -25,11 +25,13 @@ module Peacock
 
       def determine_root_dir
         old_path = Dir.pwd
+
         while not Dir.exists? '.git'
+          raise PeacockError, '.gitignore does not exist' if Dir.pwd == '/'
           Dir.chdir '..'
         end
 
-        path = Dir.pwd() + '/.gitignore'
+        path = "#{Dir.pwd}/.gitignore"
         Dir.chdir(old_path)
         path
       end
