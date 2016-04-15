@@ -2,38 +2,29 @@ module Peacock
 
   class CLI
 
-    def self.parse
+    def self.parse_argv
       parser = CLI.new
       parser.check_if_help_text
-      parser.parse_args
+      parser.create_cli_hash_from_arguments
     end
 
-    def parse_args
-      return_hash = Peacock::CLIHash.new
+    def initialize
+      @cli_hash = Peacock::CLIHash.new
+      @argument_splitter = Peacock::ArgumentSplitter.new
+    end
 
-      normalize_args!
+    def create_cli_hash_from_arguments
+      @argument_splitter.split_multiple_arguments!
+      parser.parse_arguments
+    end
 
+    def parse_arguments
       ARGV.each do |arg|
         type = determine_type arg
-        return_hash.push(type, arg) unless type.nil?
+        @cli_hash.push(type, arg) unless type.nil?
       end
 
-      return_hash
-    end
-
-    # takes every argument which follows the pattern as this: -ev, splits it to -e -v and adds it to ARGV
-    def normalize_args!
-      ARGV.each do |arg|
-        if arg.start_with?('-') && arg.size > 2
-          ARGV.delete(arg)
-          temp_ary = arg.split('')
-
-          temp_ary.each do |elem|
-            next if elem == '-'
-            ARGV << "-#{elem}"
-          end
-        end
-      end
+      @cli_hash
     end
 
     def determine_type(opt)

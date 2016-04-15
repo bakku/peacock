@@ -52,7 +52,7 @@ class TestCLI < Minitest::Test
 
   def test_parser_should_be_able_to_normalize_arguments
     ARGV[0] = '-ev'
-    @parser.normalize_args!
+    @parser.split_multiple_arguments!
     assert_equal 2, ARGV.size
     assert ARGV.include? '-e'
     assert ARGV.include? '-v'
@@ -66,7 +66,7 @@ class TestCLI < Minitest::Test
     ARGV << 'test_file'
     ARGV << 'test_dir'
 
-    hash = @parser.parse_args
+    hash = @parser.parse_arguments
 
     assert_equal 1, hash.dirs.size
     assert_equal 1, hash.files.size
@@ -88,7 +88,7 @@ class TestCLI < Minitest::Test
     ARGV << 'test_file'
     ARGV << 'test_dir'
 
-    hash = Peacock::CLI.parse
+    hash = Peacock::CLI.parse_argv
 
     assert_equal 1, hash.dirs.size
     assert_equal 1, hash.files.size
