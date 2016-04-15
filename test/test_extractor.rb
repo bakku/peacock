@@ -18,7 +18,7 @@ class TestExtractor < Minitest::Test
 
   def test_hash_includes_line_should_return_false
     extractor = Peacock::Engine::Extractor.new(Peacock::CLIHash.new)
-    refute extractor.hash_includes_line?("hi.txt")
+    refute extractor.delete_line?("hi.txt")
   end
 
   def test_hash_includes_line_should_return_true_if_dir
@@ -27,11 +27,11 @@ class TestExtractor < Minitest::Test
     extractor = Peacock::Engine::Extractor.new(hash)
 
     # try different formats
-    assert extractor.hash_includes_line?("directory\n")
-    assert extractor.hash_includes_line?("directory")
-    assert extractor.hash_includes_line?("/directory")
-    assert extractor.hash_includes_line?("directory/")
-    assert extractor.hash_includes_line?("/directory/")
+    assert extractor.delete_line?("directory\n")
+    assert extractor.delete_line?("directory")
+    assert extractor.delete_line?("/directory")
+    assert extractor.delete_line?("directory/")
+    assert extractor.delete_line?("/directory/")
   end
 
   def test_hash_includes_line_should_return_true_if_file
@@ -40,8 +40,8 @@ class TestExtractor < Minitest::Test
     extractor = Peacock::Engine::Extractor.new(hash)
 
     # try different formats
-    assert extractor.hash_includes_line?("file\n")
-    assert extractor.hash_includes_line?("file")
+    assert extractor.delete_line?("file\n")
+    assert extractor.delete_line?("file")
   end
 
   def test_delete_list_should_be_correct
@@ -52,7 +52,7 @@ class TestExtractor < Minitest::Test
     extractor = Peacock::Engine::Extractor.new(hash)
 
     ignore_lines = ['file', 'file2', 'directory']
-    delete_list = extractor.determine_delete_list(ignore_lines)
+    delete_list = extractor.determine_lines_to_be_deleted(ignore_lines)
     assert_equal ['file', 'directory'], delete_list
   end
 

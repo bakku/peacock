@@ -13,8 +13,6 @@ module Peacock
       def open_git_ignore
         path = determine_git_ignore_path
         raise PeacockError, "#{self.class} expects .gitignore to exist at #{path}" unless git_ignore_exists?(path)
-
-        # open in mode read-write (beginning of file)
         @git_ignore = File.open(path, 'r')
       end
 
@@ -24,25 +22,24 @@ module Peacock
       end
 
       def extract_files_and_directories
-        ignore_lines = @git_ignore.readlines
+        current_git_ignore_entries = @git_ignore.readlines
+        lines_to_be_deleted = determine_lines_to_be_deleted(current_git_ignore_entries)
+        remaining_lines = current_git_ignore_entries - lines_to_be_deleted
+        write_remaining_lines_to_git_ignore(remaining_lines)
+      end
 
-        # determine delete_list (cant use delete_if cause of logger logic)
-        delete_list = determine_delete_list(ignore_lines)
-
-        new_list = ignore_lines - delete_list
-
-        # reopen in writable mode and input all new git ignore entries
+      def write_remaining_lines_to_git_ignore(remaining_lines)
         @git_ignore.reopen(@git_ignore.path, 'w')
 
-        new_list.each do |line|
+        remaining_lines.each do |line|
           @git_ignore.write(line)
         end
       end
 
-      def determine_delete_list(ignore_lines)
+      def determine_lines_to_be_deleted(current_lines)
         [].tap do |delete_list|
-          ignore_lines.each_with_index do |line,index|
-            if hash_includes_line?(line)
+          current_lines.each do |line|
+            if delete_line?(line)
               delete_list.push(line)
               @logger.extract(line.chomp("\n"))
             end
@@ -50,8 +47,8 @@ module Peacock
         end
       end
 
-      def hash_includes_line?(line)
-        @hash.dirs.include?(Formatter.format_dir(line.chomp("\n"))) || @hash.files.include?(line.chomp("\n"))
+      def delete_line?(line)
+        @hash.dirs.include?(Formatter.format_directory_name(line.chomp("\n"))) || @hash.files.include?(line.chomp("\n"))
       end
 
     end

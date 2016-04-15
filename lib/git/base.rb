@@ -2,11 +2,8 @@ module Git
   class Base
     
     # wrapper for command method which returns the output
-    def self.command_output(command = '', opts = '')
-      f = command(command, opts)
-      output = f.readlines.join
-      f.close
-      output
+    def self.command_with_output(command = '', opts = '')
+      command(command, opts).readlines.join
     end
   
     # wrapper for git commands

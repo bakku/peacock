@@ -12,7 +12,7 @@ module Peacock
     end
 
     def push(type, str)
-      str = Formatter.format_dir(str) if type == :dirs
+      str = Formatter.format_directory_name(str) if type == :dirs
 
       @hash[type].push(str)
     end
