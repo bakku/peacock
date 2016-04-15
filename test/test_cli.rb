@@ -88,7 +88,7 @@ class TestCLI < Minitest::Test
     ARGV << 'test_file'
     ARGV << 'test_dir'
 
-    hash = Peacock::CLI.parse_argv
+    hash = Peacock::CLI.construct_cli_hash
 
     assert_equal 1, hash.dirs.size
     assert_equal 1, hash.files.size

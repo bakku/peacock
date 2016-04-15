@@ -2,8 +2,7 @@ module Peacock
 
   module Engine
 
-    class Extractor
-      include Peacock::Engine::Engine
+    class Extractor < Engine
 
       def self.start_engine(opt_hash)
         extractor = Extractor.new(opt_hash)
@@ -11,14 +10,9 @@ module Peacock
         extractor.workflow
       end
 
-      def initialize(opt_hash)
-        @hash = check_and_return_hash(opt_hash)
-        @logger = Peacock::Logger.new(@hash.silent?)
-      end
-
       def open_git_ignore
         path = determine_git_ignore_path
-        raise PeacockError, '#{self.class} expects .gitignore to exist at #{path}' unless git_ignore_exists?(path)
+        raise PeacockError, "#{self.class} expects .gitignore to exist at #{path}" unless git_ignore_exists?(path)
 
         # open in mode read-write (beginning of file)
         @git_ignore = File.open(path, 'r')

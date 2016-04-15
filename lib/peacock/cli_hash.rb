@@ -33,7 +33,7 @@ module Peacock
       hash.to_s
     end
 
-    def root_ignore?
+    def use_git_ignore_from_root_folder?
       opts.include?('-r') || opts.include?('--root')
     end
 
@@ -41,11 +41,11 @@ module Peacock
       opts.include?('-s') || opts.include?('--silent')
     end
 
-    def engine
+    def get_engine_class
       if opts.include?('-e') || opts.include?('--extract')
-        return Peacock::Engine::Extractor
+        Peacock::Engine::Extractor
       else
-        return Peacock::Engine::Ignorer
+        Peacock::Engine::Ignorer
       end
     end
 

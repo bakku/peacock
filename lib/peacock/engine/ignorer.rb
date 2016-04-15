@@ -5,17 +5,10 @@ module Peacock
   module Engine
 
     class Ignorer
-      include Peacock::Engine::Engine
-
       def self.start_engine(opt_hash)
         ignorer = Ignorer.new(opt_hash)
         ignorer.open_git_ignore
         ignorer.workflow
-      end
-
-      def initialize(opt_hash)
-        @hash = check_and_return_hash(opt_hash)
-        @logger = Peacock::Logger.new(@hash.silent?)
       end
 
       def open_git_ignore

@@ -16,28 +16,28 @@ class TestCLIHash < Minitest::Test
 
   def test_root_ignore_should_be_true_for_r
     @hash.push(:opts, '-r')
-    assert @hash.root_ignore?
+    assert @hash.use_git_ignore_from_root_folder?
   end
 
   def test_root_ignore_should_be_true_for_root
     @hash.push(:opts, '--root')
-    assert @hash.root_ignore?
+    assert @hash.use_git_ignore_from_root_folder?
   end
 
   def test_root_ignore_should_be_true_for_both
     @hash.push(:opts, '-r')
     @hash.push(:opts, '--root')
-    assert @hash.root_ignore?
+    assert @hash.use_git_ignore_from_root_folder?
   end
 
   def test_root_ignore_should_be_false_without_r_or_root
     @hash.push(:opts, '-e')
     @hash.push(:opts, '--bla')
-    refute @hash.root_ignore?
+    refute @hash.use_git_ignore_from_root_folder?
   end
 
   def test_root_ignore_should_be_false_for_empty
-    refute @hash.root_ignore?
+    refute @hash.use_git_ignore_from_root_folder?
   end
 
   def test_silent_should_be_true_for_s
@@ -88,16 +88,16 @@ class TestCLIHash < Minitest::Test
 
   def test_e_should_be_extractor
     @hash.push(:opts, '-e')
-    assert_equal Peacock::Engine::Extractor, @hash.engine
+    assert_equal Peacock::Engine::Extractor, @hash.get_engine_class
   end
 
   def test_extract_should_be_extractor
     @hash.push(:opts, '--extract')
-    assert_equal Peacock::Engine::Extractor, @hash.engine
+    assert_equal Peacock::Engine::Extractor, @hash.get_engine_class
   end
 
   def test_default_should_be_ignorer
-    assert_equal Peacock::Engine::Ignorer, @hash.engine
+    assert_equal Peacock::Engine::Ignorer, @hash.get_engine_class
   end
 
   def test_to_string_should_format_hash_correctly

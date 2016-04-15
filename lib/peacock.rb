@@ -15,7 +15,7 @@ require 'peacock/engine/ignorer'
 module Peacock
 
   def self.execute
-    cli_hash = Peacock::CLI.parse_argv
+    cli_hash = Peacock::CLI.construct_cli_hash
     Peacock::StartupManager.check_peacock_requirements
     Peacock::Engine.execute(cli_hash)
   end

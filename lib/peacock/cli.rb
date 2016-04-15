@@ -2,7 +2,7 @@ module Peacock
 
   class CLI
 
-    def self.parse_argv
+    def self.construct_cli_hash
       parser = CLI.new
       parser.check_if_help_text
       parser.create_cli_hash_from_arguments
