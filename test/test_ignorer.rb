@@ -19,4 +19,35 @@ class TestIgnorer < Minitest::Test
     File.exist? '.gitignore'
   end
 
+  def test_entry_exists_should_be_false
+    ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
+    prepare_git_ignore
+    ignorer.open_git_ignore
+    refute ignorer.entry_exists? 'no_exist'
+  end
+
+  def test_entry_exists_should_be_true_for_correct_entry
+    ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
+    prepare_git_ignore
+    ignorer.open_git_ignore
+    assert ignorer.entry_exists? 'file'
+  end
+
+  def test_entry_exists_should_be_true_for_entry_without_newline
+    ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
+    prepare_git_ignore
+    ignorer.open_git_ignore
+    assert ignorer.entry_exists? 'directory'
+  end
+
+  private
+
+  def prepare_git_ignore
+    File.open('.gitignore', 'w') do |file|
+      file.write "file\n"
+      file.write "file2\n"
+      file.write "directory"
+    end
+  end
+
 end

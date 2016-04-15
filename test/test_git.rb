@@ -12,6 +12,11 @@ class TestGit < Minitest::Test
     ARGV.clear
   end
 
+  def test_base_command_should_call_git
+    output = Git.git
+    assert output.include? 'These are common Git commands used in various situations'
+  end
+
   def test_git_new_should_raise_exception
     assert_raises NoGitRepositoryError do
       Git.check_repo_existance

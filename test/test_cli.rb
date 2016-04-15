@@ -79,5 +79,27 @@ class TestCLI < Minitest::Test
     FileUtils.rm_rf 'test_dir'
     FileUtils.rm_rf 'test_file'
   end
-  
+
+  def test_parse_will_execute_full_workflow
+    Dir.mkdir 'test_dir'
+    FileUtils.touch 'test_file'
+
+    ARGV << '-r'
+    ARGV << 'test_file'
+    ARGV << 'test_dir'
+
+    hash = Peacock::CLI.parse
+
+    assert_equal 1, hash.dirs.size
+    assert_equal 1, hash.files.size
+    assert_equal 1, hash.opts.size
+
+    assert_equal '/test_dir/', hash.dirs.first
+    assert_equal 'test_file', hash.files.first
+    assert_equal '-r', hash.opts.first
+
+    FileUtils.rm_rf 'test_dir'
+    FileUtils.rm_rf 'test_file'
+  end
+
 end

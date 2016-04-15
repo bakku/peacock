@@ -1,6 +1,6 @@
 require 'minitest_helper'
 
-class TestCLI < Minitest::Test
+class TestCLIHash < Minitest::Test
 
   def setup
     @hash = Peacock::CLIHash.new
@@ -98,6 +98,13 @@ class TestCLI < Minitest::Test
 
   def test_default_should_be_ignorer
     assert_equal Peacock::Engine::Ignorer, @hash.engine
+  end
+
+  def test_to_string_should_format_hash_correctly
+    @hash.push(:opts, '-e')
+    @hash.push(:dirs, 'directory')
+    @hash.push(:files, 'file')
+    assert_equal '{:opts=>["-e"], :files=>["file"], :dirs=>["/directory/"]}', @hash.to_s
   end
 
 end
