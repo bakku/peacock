@@ -4,7 +4,7 @@ module Peacock
 
   module Engine
 
-    class Ignorer
+    class Ignorer < Engine
       def self.start_engine(opt_hash)
         ignorer = Ignorer.new(opt_hash)
         ignorer.open_or_create_git_ignore

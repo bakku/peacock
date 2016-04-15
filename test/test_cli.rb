@@ -50,14 +50,6 @@ class TestCLI < Minitest::Test
     refute @parser.determine_argument_type 'not_available'
   end
 
-  def test_parser_should_be_able_to_normalize_arguments
-    ARGV[0] = '-ev'
-    @parser.split_multiple_arguments!
-    assert_equal 2, ARGV.size
-    assert ARGV.include? '-e'
-    assert ARGV.include? '-v'
-  end
-
   def test_parse_hash_should_be_as_expected
     Dir.mkdir 'test_dir'
     FileUtils.touch 'test_file'

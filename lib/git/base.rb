@@ -1,13 +1,18 @@
 module Git
   class Base
     
-    # wrapper for command method which returns the output
     def self.command_with_output(command = '', opts = '')
-      command(command, opts).readlines.join
+      output_stream = base_command(command, opts)
+      output_as_string = output_stream.readlines.join
+      output_stream.close
+      output_as_string
     end
   
-    # wrapper for git commands
     def self.command(command = '', opts = '')
+      base_command(command, opts).close
+    end
+
+    def self.base_command(command = '', opts = '')
       IO.popen("git #{command} #{opts} 2>&1") # 2>&1 surpresses stderr
     end
     

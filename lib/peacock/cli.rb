@@ -15,7 +15,7 @@ module Peacock
 
     def create_cli_hash_from_arguments
       @argument_splitter.split_multiple_arguments!
-      parser.parse_arguments_into_cli_hash
+      parse_arguments_into_cli_hash
     end
 
     def parse_arguments_into_cli_hash

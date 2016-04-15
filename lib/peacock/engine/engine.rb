@@ -19,6 +19,10 @@ module Peacock
         @logger = Peacock::Logger.new(@hash.silent?)
       end
 
+      def cli_hash?(hash)
+        hash.class == CLIHash
+      end
+
       def throw_cli_hash_error
         raise PeacockError, "#{self.class} expects an instance of Peacock::CLIHash"
       end

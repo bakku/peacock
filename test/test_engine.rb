@@ -14,13 +14,6 @@ class TestEngine < Minitest::Test
     ARGV.clear
   end
 
-  def test_should_raise_an_error_if_no_cli_hash_was_passed
-    ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
-    assert_raises Peacock::PeacockError do
-      ignorer.check_and_return_hash Hash.new
-    end
-  end
-
   def test_should_take_current_directory_by_default
     ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
     assert_equal '.gitignore', ignorer.determine_git_ignore_path
