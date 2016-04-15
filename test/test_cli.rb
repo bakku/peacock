@@ -29,25 +29,25 @@ class TestCLI < Minitest::Test
 
   def test_determine_type_should_be_dirs_for_directories
     Dir.mkdir 'test_determine_type_should_be_dirs_for_directories'
-    type = @parser.determine_type 'test_determine_type_should_be_dirs_for_directories'
+    type = @parser.determine_argument_type 'test_determine_type_should_be_dirs_for_directories'
     assert_equal :dirs, type
     FileUtils.rm_rf 'test_determine_type_should_be_dirs_for_directories'
   end
 
   def test_determine_type_should_be_files_for_files
     FileUtils.touch 'test_determine_type_should_be_files_for_files'
-    type = @parser.determine_type 'test_determine_type_should_be_files_for_files'
+    type = @parser.determine_argument_type 'test_determine_type_should_be_files_for_files'
     assert_equal :files, type
     FileUtils.rm_rf 'test_determine_type_should_be_files_for_files'
   end
 
   def test_determine_type_should_be_opts_for_options
-    type = @parser.determine_type '-r'
+    type = @parser.determine_argument_type '-r'
     assert_equal :opts, type
   end
 
   def test_determine_type_should_be_nil
-    refute @parser.determine_type 'not_available'
+    refute @parser.determine_argument_type 'not_available'
   end
 
   def test_parser_should_be_able_to_normalize_arguments
@@ -66,7 +66,7 @@ class TestCLI < Minitest::Test
     ARGV << 'test_file'
     ARGV << 'test_dir'
 
-    hash = @parser.parse_arguments
+    hash = @parser.parse_arguments_into_cli_hash
 
     assert_equal 1, hash.dirs.size
     assert_equal 1, hash.files.size

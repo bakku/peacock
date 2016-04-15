@@ -15,19 +15,19 @@ module Peacock
 
     def create_cli_hash_from_arguments
       @argument_splitter.split_multiple_arguments!
-      parser.parse_arguments
+      parser.parse_arguments_into_cli_hash
     end
 
-    def parse_arguments
+    def parse_arguments_into_cli_hash
       ARGV.each do |arg|
-        type = determine_type arg
+        type = determine_argument_type arg
         @cli_hash.push(type, arg) unless type.nil?
       end
 
       @cli_hash
     end
 
-    def determine_type(opt)
+    def determine_argument_type(opt)
       if File.directory?(opt)
         :dirs
       elsif File.file?(opt)
