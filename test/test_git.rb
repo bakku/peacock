@@ -26,7 +26,7 @@ class TestGit < Minitest::Test
   def test_git_init_should_return_correct_output
     output = Git.init
     assert output.include?('Initialized empty Git repository')
-    Dir.exists?('.git')
+    File.exist?('.git')
 
     # should not raise an exception now
     Git.check_repo_existance
