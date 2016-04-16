@@ -17,7 +17,7 @@ class TestGit < Minitest::Test
     assert output.include? 'These are common Git commands used in various situations'
   end
 
-  def test_git_new_should_raise_exception
+  def test_git_check_repo_existance_should_raise_exception
     assert_raises NoGitRepositoryError do
       Git.check_repo_existance
     end

@@ -19,6 +19,13 @@ class TestEngine < Minitest::Test
     assert_equal '.gitignore', ignorer.determine_git_ignore_path
   end
 
+  def test_should_throw_correct_exception
+    ignorer = Peacock::Engine::Ignorer.new(Peacock::CLIHash.new)
+    assert_raises Peacock::PeacockError do
+      ignorer.throw_cli_hash_error
+    end
+  end
+
   def test_should_take_root_directory
     hash = Peacock::CLIHash.new
     hash.push :opts, '-r'
