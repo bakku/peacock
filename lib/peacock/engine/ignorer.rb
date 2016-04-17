@@ -11,7 +11,7 @@ module Peacock
         ignorer.workflow
       end
 
-      def open_git_ignore
+      def open_or_create_git_ignore
         path = determine_git_ignore_path
         FileUtils.touch(path) unless git_ignore_exists?(path)
 
@@ -57,12 +57,12 @@ module Peacock
 
       def insert_in_gitignore(str)
         @git_ignore.write(str + "\n")
-        Git.remove_from_cache(prepare_arg(str))
+        Git.remove_from_cache(remove_leading_slash(str))
         @logger.ignore(str)
       end
 
       # if directory then remove leading slash
-      def prepare_arg(str)
+      def remove_leading_slash(str)
         if str.start_with?('/')
           str[1..-1]
         else
