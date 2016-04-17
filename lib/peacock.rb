@@ -10,7 +10,7 @@ require 'peacock/cli'
 require 'peacock/engine/engine'
 require 'peacock/engine/extractor'
 require 'peacock/engine/ignorer'
-
+require 'peacock/engine/cleaner'
 
 module Peacock
 

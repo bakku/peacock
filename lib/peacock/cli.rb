@@ -60,11 +60,12 @@ module Peacock
           \t-r, [--root]           # use root .gitignore
           \t-s, [--silent]         # surpress output
           \t-e, [--extract]        # extract file from .gitignore
+          \t-c, [--cleanup]        # remove non existing files and directories from .gitignore
       EOF
     end
 
     def options
-      %w(-r --root -e --extract -s --silent)
+      %w(-r --root -e --extract -s --silent -c --cleanup)
     end
 
   end

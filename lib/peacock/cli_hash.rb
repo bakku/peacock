@@ -44,6 +44,8 @@ module Peacock
     def get_engine_class
       if opts.include?('-e') || opts.include?('--extract')
         Peacock::Engine::Extractor
+      elsif opts.include?('-c') || opts.include?('--cleanup')
+        Peacock::Engine::Cleaner
       else
         Peacock::Engine::Ignorer
       end

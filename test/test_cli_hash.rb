@@ -96,6 +96,16 @@ class TestCLIHash < Minitest::Test
     assert_equal Peacock::Engine::Extractor, @hash.get_engine_class
   end
 
+  def test_c_should_be_cleaner
+    @hash.push(:opts, '-c')
+    assert_equal Peacock::Engine::Cleaner, @hash.get_engine_class
+  end
+
+  def test_cleanup_should_be_cleaner
+    @hash.push(:opts, '--cleanup')
+    assert_equal Peacock::Engine::Cleaner, @hash.get_engine_class
+  end
+
   def test_default_should_be_ignorer
     assert_equal Peacock::Engine::Ignorer, @hash.get_engine_class
   end
