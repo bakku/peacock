@@ -35,22 +35,36 @@ module Peacock
 
       def create_cleaned_up_list(entries)
         cleaned_up_list = []
-
+        p entries
         entries.each do |entry|
-          if entry_exists_on_file_system?(entry) || entry_is_a_comment?(entry)
+          if entry_exists_on_file_system?(entry) || entry_is_a_comment?(entry) || entry_is_newline?(entry)
             cleaned_up_list << entry
           end
         end
+
+        p cleaned_up_list
+
+        print_deleted_entries(entries, cleaned_up_list)
 
         cleaned_up_list
       end
 
       def entry_exists_on_file_system?(entry)
-        File.exist? entry
+        File.exist? entry.chomp("\n")
       end
 
       def entry_is_a_comment?(entry)
         entry.start_with?('#')
+      end
+
+      def entry_is_newline?(entry)
+        entry == "\n"
+      end
+
+      def print_deleted_entries(all_entries, cleaned_up_entries)
+        (all_entries - cleaned_up_entries).each do |entry|
+          @logger.extract(entry.chomp("\n"))
+        end
       end
 
       def reopen_git_ignore_in_read_mode
